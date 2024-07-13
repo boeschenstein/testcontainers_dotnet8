@@ -1,0 +1,38 @@
+
+Integration Testing with Web Application Factory | C#
+The Musings Of A Dev
+https://www.youtube.com/watch?v=msUOxMdr9QY
+
+```cmd
+dotnet new webapi --name CustomerWeb
+dotnet new xunit --name CustomerWeb.Test
+
+dotnet new solution --name TestcontainersDemo
+
+dotnet sln add .\CustomerWeb\CustomerWeb.csproj
+dotnet sln add .\CustomerWeb.Test\CustomerWeb.Test.csproj
+```
+
+CustomerWeb.Test: add reference to CustomerWeb: dotnet add <project> reference <project-path>
+dotnet add .\CustomerWeb.Test\CustomerWeb.Test.csproj reference .\CustomerWeb\CustomerWeb.csproj
+
+Add nuget package "Microsoft.AspNetCore.Mvc.Testing"
+
+dotnet package search Microsoft.AspNetCore.Mvc.Testing
+dotnet add .\CustomerWeb.Test\CustomerWeb.Test.csproj package Microsoft.AspNetCore.Mvc.Testing
+
+add a test:
+
+```cs
+[Fact]
+public async Task Weatherforecast_ShouldReturnOk()
+{
+    // to get access to Program, add a reference to the CustomerWeb project and <InternalsVisibleTo Include="CustomerWeb.Test"/> to csproj
+    var factory = new WebApplicationFactory<Program>();
+    var client = factory.CreateClient();
+    var response = await client.GetAsync("/Weatherforecast");
+    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+}
+```
+
+done.
