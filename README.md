@@ -7,10 +7,10 @@
 Nugets
 
 ```cmd
-Npgsql.EntityFrameworkCore.PostgreSQL
-Microsoft.EntityFrameworkCore.Design
-Hangfire.AspNetCore
-Hangfire.PostgreSql
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Hangfire.AspNetCore
+dotnet add package Hangfire.PostgreSql
 ```
 
 Services:
